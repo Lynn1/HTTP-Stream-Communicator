@@ -1,21 +1,37 @@
-# HTTP-StreamQueue
+# HTTP-StreamMessaging
 
 This is a server and client code template for sending and receiving messages through http streaming
 
 ### Run Test :
 
-The test starts the server and simulates the generated data after listening for the request
+**Step1: starts the server and simulates the generated data after listening for the request**
 
- `python ./MTStreamQueueServer.py`
+recommand to use the latest multi-processed version :
 
-The test sends the client request and prints the server response
+```
+# run server v1 : multi-threaded 
+# python ./MTStreamQueueServer.py
+
+# run server v2: multi-processed (latest, recommanded)
+python ./MPStreamServer.py --server_ip localhost --server_port 8000 --max_gen_len 10
+```
+
+**Step2: run the client request to send request to the server and prints the server response**
 
  `python ./streamclient.py`
 
 ### Usage Tips:
 
-1. Replace the *client request sending string* with your user input information
-2. Replace the *line of server generated data* with your response information generation function
+1. Replace the *client : request_str*  with your user input information
+2. Replace the server : *FakeResponser*  with your response information generation function
+
+### 2024.4.30 update:
+
+Use multi-process to hold the http server instead of multi-thread, communication with the fakeresponser(front process) via pipe
+
+### 2024.4.29 update:
+
+Exchange front and back roles: fakeresponser as front process, http monitoring service in the background
 
 ### 2024.4.26 log:
 
